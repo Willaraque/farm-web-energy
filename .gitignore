@@ -1,3 +1,6 @@
 backend/nohup.out
 *.log
 logs/
+backend/nohup.out
+*.log
+logs/
