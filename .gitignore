@@ -1,9 +1,28 @@
-backend/nohup.out
+# Logs
 *.log
 logs/
 backend/nohup.out
-*.log
-logs/
-backend/nohup.out
-*.log
-logs/
+
+# Node / React
+node_modules/
+dist/
+build/
+*.cache
+*.map
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+env/
+.egg-info/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Env
+.env
+.env.*
