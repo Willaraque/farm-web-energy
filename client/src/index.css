@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* body{
+    color: white;
+    width: 100%;
+    height: auto;
+    padding-top: 0px;
+    background-image: url(../src/assets/fondo_pantalla_pagina.jpg);
+    background-repeat: no-repeat;
+    background-size:cover; 
+    background-attachment: fixed; 
+    height: 100vh; 
+    width: 100%;
+    overflow-x: hidden; 
+} */
+
+body {
+    margin: 0; /* Elimina cualquier margen predeterminado */
+    padding: 0;
+    background: linear-gradient(135deg, #004AAD, #6A0DAD);
+    /* background-image: url(../src/assets/fondo_pantalla_pagina.jpg); */
+    background-repeat: no-repeat; /* Evita la repetición del fondo */
+    background-size: cover; /* Asegura que el fondo cubra toda la pantalla */
+    background-attachment: fixed; /* Hace que el fondo permanezca fijo al hacer scroll */
+    height: 100vh; /* Asegura que ocupe el 100% de la altura de la ventana */
+    width: 100%; /* Asegura que ocupe el 100% del ancho */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  @keyframes bg-animation {
+    0% { background: linear-gradient(135deg, #6A0DAD, #2C3E50); }
+    50% { background-position: 100% 50%; }
+    100% { background: linear-gradient(135deg, #00B4D8, #023E8A); }
+  }
+
+  button {
+    background: linear-gradient(90deg, #FF5722, #FFD700); /* Botones naranja a amarillo */
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0px 4px 10px rgba(255, 87, 34, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 8px 15px rgba(255, 215, 0, 0.6);
+  }
+  
+
+  h1 {
+    /* color: #FFD700; //Títulos resaltados en amarillo */
+    color: #fff; /* Títulos resaltados en amarillo */
+    /* text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.6); */
+    font-size: 3.5rem;
+    font-weight: bold;
+  }
+
+  .chart-container {
+    background: rgba(255, 255, 255, 0.1); 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  div {
+    animation: fadeIn 0.5s ease-out;
+  }

@@ -1,0 +1,158 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+
+/* Estilo para la barra de navegación */
+.navbar {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.8); 
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: 100%; /* Cambiado a 100% para asegurar que la barra ocupe todo el ancho */
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+/* Estilo para la lista de enlaces */
+.nav-links {
+    list-style-type: none; /*Elimina las viñetas */
+    padding: 0;
+    margin: 0;
+    display: block; /*Flexbox para alinear los elementos horizontalmente */
+    flex-wrap: wrap; /*Permite que los elementos se ajusten a diferentes tamaños de pantalla */
+    justify-content: flex-end; /*Alineación de los elementos a la izquierda */
+    flex-grow: 1; /* Permite que los enlaces ocupen todo el espacio disponible */
+}
+
+/* Estilo para los elementos de la navegación */
+.nav-item {
+    margin-right: 20px; /* Espaciado entre los elementos */
+    transition: transform 0.2s, color 0.2s;
+}
+
+/* Estilo para los enlaces de la navegación */
+.nav-item a {
+    color: #ffffff; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto hover para los enlaces */
+.nav-item a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Fondo blanco semi-transparente al pasar el ratón */
+    color: #FFD700; /* Cambia el color del texto a dorado */
+    transform: translateY(-3px); /* Efecto de desplazamiento hacia arriba */
+}
+
+/* Estilo para el pie de la navbar */
+.navbar-footer {
+    margin-left: auto; /* Empuja el texto del usuario al extremo derecho */
+    font-size: 14px;
+    color: #BBBBBB; /* Un gris claro para el pie de la navbar */
+    margin-top: 10px; 
+}
+
+
+button {
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    margin-top: 10px; /* Asegura que haya un poco de espacio entre el correo y el botón */
+  }
+
+
+
+/* Estilo responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Cambia la dirección de los elementos a columna */
+        align-items: center; /* Alinea los elementos al inicio en pantallas pequeñas */
+    }
+
+    .nav-links {
+        justify-content: center; /* Centra los enlaces en pantallas pequeñas */
+        width: 100%; /* Asegura que la lista de enlaces ocupe todo el ancho */
+    }
+
+    .nav-item {
+        margin-bottom: 10px; /* Añade espacio debajo de cada enlace */
+        margin-right: 0; /* Elimina el margen derecho */
+    }
+
+    .navbar-footer {
+        text-align: center; /* Centra el pie de página en pantallas pequeñas */
+    }
+
+    .nav-links {
+        display: none; /* Oculta el menú por defecto */
+        flex-direction: column; /* Coloca los enlaces en columnas cuando se despliega */
+        width: 100%; /* Que ocupe el ancho completo */
+        text-align: center; /* Centra los enlaces */
+        background-color: black; /* Mismo color de fondo */
+      }
+    
+      /* Mostrar el menú cuando el toggle está activo */
+      .nav-links.active {
+        display: flex;
+      }
+    
+      /* Estilo para el botón de menú (hamburger) */
+      .menu-toggle {
+        font-size: 24px;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+      }
+    
+      .menu-toggle:focus {
+        outline: none;
+      }
+}
+
+@media (max-width: 480px) {
+    .nav-item a {
+        font-size: 16px; /* Ajusta el tamaño del texto para pantallas muy pequeñas */
+    }
+}
+
+
+@media (min-width: 1024px) {
+    .container {
+      flex-direction: row; /* Cambia a fila en pantallas grandes */
+    }
+  }
+  
+  button {
+    margin-top: 10px; /* Ajusta la posición de la "X" */
+  }
+  
+  nav ul {
+    margin-top: 20px; /* Asegura que las opciones del menú estén debajo del correo en pantallas pequeñas */
+  }
+  
+  @media (min-width: 1024px) {
+    button {
+      margin-top: 0; /* Elimina el margen superior en pantallas grandes */
+    }
+  
+    nav ul {
+      margin-top: 0; /* Ajusta para que el menú esté alineado en una fila en pantallas grandes */
+    }
+  }
+

@@ -1,0 +1,92 @@
+
+
+Sat Oct 12 21:36:28 2024
+Command line: TestDisk
+
+TestDisk 7.1, Data Recovery Utility, July 2019
+Christophe GRENIER <grenier@cgsecurity.org>
+https://www.cgsecurity.org
+OS: Linux, kernel 6.8.0-1016-aws (#17-Ubuntu SMP Mon Sep  2 13:48:07 UTC 2024) x86_64
+Compiler: GCC 13.2
+ext2fs lib: 1.47.0, ntfs lib: libntfs-3g, reiserfs lib: none, ewf lib: none, curses lib: ncurses 6.4
+Warning: can't get size for Disk /dev/mapper/control - 0 B - 0 sectors, sector size=512
+Warning: can't get size for Disk /dev/loop0 - 0 B - 0 sectors, sector size=512
+Warning: can't get size for Disk /dev/loop1 - 0 B - 0 sectors, sector size=512
+Warning: can't get size for Disk /dev/loop2 - 0 B - 0 sectors, sector size=512
+Warning: can't get size for Disk /dev/loop3 - 0 B - 0 sectors, sector size=512
+Warning: can't get size for Disk /dev/loop4 - 0 B - 0 sectors, sector size=512
+Warning: can't get size for Disk /dev/loop5 - 0 B - 0 sectors, sector size=512
+Warning: can't get size for Disk /dev/loop6 - 0 B - 0 sectors, sector size=512
+Warning: can't get size for Disk /dev/loop7 - 0 B - 0 sectors, sector size=512
+Hard disk list
+Disk /dev/xvda - 10 GB / 10 GiB - CHS 1305 255 63, sector size=512
+
+Partition table type (auto): EFI GPT
+Disk /dev/xvda - 10 GB / 10 GiB
+Partition table type: EFI GPT
+
+Analyse Disk /dev/xvda - 10 GB / 10 GiB - CHS 1305 255 63
+hdr_size=92
+hdr_lba_self=1
+hdr_lba_alt=20971519 (expected 20971519)
+hdr_lba_start=34
+hdr_lba_end=20971486
+hdr_lba_table=2
+hdr_entries=128
+hdr_entsz=128
+21686148 6449 6e6f 74 4e 65 65 64 45 46 49
+Current partition structure:
+ 1 P Linux filesys. data      2099200   20971486   18872287
+14 P Unknown                     2048      10239       8192
+15 P EFI System                 10240     227327     217088
+16 P Extended Boot             227328    2097152    1869825
+
+search_part()
+Disk /dev/xvda - 10 GB / 10 GiB - CHS 1305 255 63
+FAT32 at 0/162/35
+FAT1 : 32-1701
+FAT2 : 1702-3371
+start_rootdir : 3372 root cluster : 2
+Data : 3372-217034
+sectors : 217035
+cluster_size : 1
+no_of_cluster : 213663 (2 - 213664)
+fat_length 1670 calculated 1670
+heads/cylinder 128 (FAT) != 255 (HD)
+
+FAT32 at 0/162/35
+FAT: cluster=2(0x2), pos=13612
+     EFI System                 10240     227274     217035 [EFI System Partition] [UEFI]
+     FAT32, blocksize=512, 111 MB / 105 MiB
+
+recover_EXT2: s_block_group_nr=0/7, s_mnt_count=8/4294967295, s_blocks_per_group=32768, s_inodes_per_group=7312
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 233728
+recover_EXT2: part_size 1869824
+Filesystem created: Thu Aug  1 08:37:52 2024
+Last mount time:    Thu Sep 26 19:19:30 2024
+     Linux filesys. data       227328    2097151    1869824 [BOOT]
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 957 MB / 913 MiB
+
+recover_EXT2: s_block_group_nr=0/71, s_mnt_count=4/4294967295, s_blocks_per_group=32768, s_inodes_per_group=16384
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 2359035
+recover_EXT2: part_size 18872280
+Filesystem created: Thu Aug  1 08:37:37 2024
+Last mount time:    Thu Sep 26 19:19:30 2024
+     Linux filesys. data      2099200   20971479   18872280 [cloudimg-rootfs]
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 9662 MB / 9214 MiB
+
+Results
+   P EFI System                 10240     227274     217035 [EFI System Partition] [UEFI]
+     FAT32, blocksize=512, 111 MB / 105 MiB
+   P Linux filesys. data       227328    2097151    1869824 [BOOT]
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 957 MB / 913 MiB
+   P Linux filesys. data      2099200   20971479   18872280 [cloudimg-rootfs]
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 9662 MB / 9214 MiB
+
+Hint for advanced users: dmsetup may be used if you prefer to avoid rewriting the partition table for the moment:
+echo "0 217035 linear /dev/xvda 10240" | dmsetup create test0
+echo "0 1869824 linear /dev/xvda 227328" | dmsetup create test1
+echo "0 18872280 linear /dev/xvda 2099200" | dmsetup create test2
+SIGINT detected! TestDisk has been killed.
