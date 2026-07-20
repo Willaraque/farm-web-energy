@@ -6,9 +6,9 @@ except:
     script_path = re.sub(r"[\\]","/",os.getcwd())
     sys.path.insert(0,script_path)
 
-from iberian_energy_prices import (
+from pcrenergy import (
     client_local,
-    OmieService,
+    Omie,
     EsiosPlaywrightMongoScraper,
 )
 import re,os,sys

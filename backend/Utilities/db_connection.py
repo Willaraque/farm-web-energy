@@ -13,10 +13,10 @@ class mongoDB:
             IF HOST == TERA -> CONNECT TERA DATABASE COLLECTION GDC
             IF HOST == test_tera -> CONNECT TESTS TERA DATABASE COLLECTION GDC
         """
-        mongo_username = "admin"
-        mongo_password = "william1998."
-        if host.lower() == 'wac':
-            ssh_address = "ec2-13-38-10-75.eu-west-3.compute.amazonaws.com"
+        mongo_username = ""
+        mongo_password = ""
+        if host.lower() == '':
+            ssh_address = ""
             client = AsyncIOMotorClient("mongodb://" + mongo_username + ":" + mongo_password + "@" + ssh_address)
         elif 'test' in host.lower():
             ssh_address = "13.38.10.75"
