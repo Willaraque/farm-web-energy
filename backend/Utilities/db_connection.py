@@ -10,8 +10,6 @@ class mongoDB:
         """
         CONEXION A MONGODB\n
             BY DEFAULT -> CONNECT TO LOCALHOST MONGODB DATABASE \n
-            IF HOST == TERA -> CONNECT TERA DATABASE COLLECTION GDC
-            IF HOST == test_tera -> CONNECT TESTS TERA DATABASE COLLECTION GDC
         """
         mongo_username = ""
         mongo_password = ""
