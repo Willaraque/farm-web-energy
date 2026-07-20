@@ -3,11 +3,11 @@ from Librerias.vars import *
 from fastapi import APIRouter, HTTPException
 
 '''
-    #GET -> pide datos
-    #POST -> crea datos
-    #PUT -> Actualiza datos
-    #DELETE -> Elimina datos 
-    
+GET -> pide datos
+POST -> crea datos
+PUT -> Actualiza datos
+DELETE -> Elimina datos 
+CRUD -> Create, Read, Update, Delete 
 '''
 
 task = APIRouter()

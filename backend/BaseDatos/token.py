@@ -46,7 +46,8 @@ async def get_user(username):
     user_data = await db_user.find_one({'username': username})
     if user_data: 
         return UserInDB(**user_data)
-    else: return []
+    else: 
+        return []
 
 async def verify_password(plane_password:str, hashed_password:str):
     context = CryptContext(

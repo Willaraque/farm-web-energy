@@ -6,6 +6,11 @@ except:
     script_path = re.sub(r"[\\]","/",os.getcwd())
     sys.path.insert(0,script_path)
 
+from iberian_energy_prices import (
+    client_local,
+    OmieService,
+    EsiosPlaywrightMongoScraper,
+)
 import re,os,sys
 from fastapi import FastAPI, Form
 from routes.task import task
