@@ -1,11 +1,10 @@
 from Librerias.lib import *
 from motor.motor_asyncio import AsyncIOMotorClient
-from Utilities.db_connection import mongoDB
+from pcrenergy import client_local
 
 
 '''CONEXION CON LA BASE DE DATOS MONGO '''
-mongo = mongoDB.connect_db()
-# mongo_tera = mongoDB.connect_db('tera')
+mongo = client_local()
 
 '''COLECCIONES A UTILIZAR '''
 db_omie = mongo.Proyecto_Baterias.OMIE
