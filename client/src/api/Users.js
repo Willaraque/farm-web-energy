@@ -1,12 +1,7 @@
-import axios from "axios";
+import { apiClient } from "./client";
 
-const URL = `http://13.38.10.75:3000`
-const endpoint = `${URL}/api/users`
-
-export const createUser = (newUser) => axios.post(`${endpoint}/create`, newUser); //esta funcion si la utilizamos
-
-export const OneUser = async (id) => await axios.get(`${endpoint}/${id}`);
-
-export const updateUser = (id, user) => axios.put(`${endpoint}/update/${id}`, user)
-
-export const deleteUser = (id) => axios.delete(`${endpoint}/delete/${id}`)
+const endpoint = "/api/users";
+export const createUser = (user) => apiClient.post(`${endpoint}/create`, user);
+export const fetchUser = (id) => apiClient.get(`${endpoint}/${id}`);
+export const updateUser = (id, user) => apiClient.put(`${endpoint}/update/${id}`, user);
+export const deleteUser = (id) => apiClient.delete(`${endpoint}/delete/${id}`);

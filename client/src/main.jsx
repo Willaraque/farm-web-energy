@@ -1,75 +1,33 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Dashboard from "./router/Dashboard.jsx";
-import Login from "./router/Login.jsx";
-import Registro from "./router/Registro.jsx";
-import ProtectedRouter from "./router/ProtectedRouter.jsx";
-import AuthProvider from "./Autenticacion/AuthProvider.jsx";
-import LisTask from "./pages/LisTask.jsx";
-import TaskForm from "./pages/TaskForm.jsx";
-import PreciosForm from "./pages/TablePrices.jsx";
+import AuthProvider from "./features/auth/AuthProvider";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import SpinnerLoader from "./components/SpinnerLoader";
+import ThemeProvider from "./features/theme/ThemeProvider";
+
+const DashboardPage = lazy(() => import("./features/dashboard/DashboardPage"));
+const ProductsPage = lazy(() => import("./features/products/ProductsPage"));
+const ProductFormPage = lazy(() => import("./features/products/ProductFormPage"));
+const MarketPricesPage = lazy(() => import("./features/market/MarketPricesPage"));
+const deferred = (element) => <Suspense fallback={<SpinnerLoader label="Cargando pantalla" />}>{element}</Suspense>;
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login />
-  },
-  {
-    path: "/registro",
-    element: <Registro />
-  },
-  {
-    path: "/",
-    element: <ProtectedRouter />,
-    children: [{
-      path: "/dashboard",
-      element: <Dashboard />
-    }]
-  },
-  {
-    path: "/",
-    element: <ProtectedRouter />,
-    children: [{
-      path: "/productos",
-      element: <LisTask />
-    }]
-  },
-  {
-    path: "/",
-    element: <ProtectedRouter />,
-    children: [{
-      path: "/productos/:id",
-      element: <TaskForm />
-    }]
-  },
-  {
-    path: "/",
-    element: <ProtectedRouter />,
-    children: [{
-      path: "/productos/create",
-      element: <TaskForm />
-    }]
-  },
-  {
-    path: "/",
-    element: <ProtectedRouter />,
-    children: [{
-      path: "/precios",
-      element: <PreciosForm />
-    }]
-  }
+  { path: "/", element: <LoginPage /> },
+  { path: "/registro", element: <RegisterPage /> },
+  { element: <ProtectedRoute />, children: [
+    { path: "/dashboard", element: deferred(<DashboardPage />) },
+    { path: "/productos", element: deferred(<ProductsPage />) },
+    { path: "/productos/create", element: deferred(<ProductFormPage />) },
+    { path: "/productos/:id", element: deferred(<ProductFormPage />) },
+    { path: "/precios", element: deferred(<MarketPricesPage />) },
+  ] },
+  { path: "*", element: <Navigate to="/" replace /> },
 ]);
 
-
-{/* <App /> */}
-
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-      <AuthProvider>
-        <RouterProvider router={router}/>
-      </AuthProvider>
-  </React.StrictMode>
+  <React.StrictMode><ThemeProvider><AuthProvider><RouterProvider router={router} future={{ v7_startTransition: true }} /></AuthProvider></ThemeProvider></React.StrictMode>,
 );
