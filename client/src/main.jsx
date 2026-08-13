@@ -6,6 +6,8 @@ import AuthProvider from "./features/auth/AuthProvider";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import PhoneAuthPage from "./pages/PhoneAuthPage";
+import OAuthCallbackPage from "./pages/OAuthCallbackPage";
 import SpinnerLoader from "./components/SpinnerLoader";
 import ThemeProvider from "./features/theme/ThemeProvider";
 
@@ -18,6 +20,8 @@ const deferred = (element) => <Suspense fallback={<SpinnerLoader label="Cargando
 const router = createBrowserRouter([
   { path: "/", element: <LoginPage /> },
   { path: "/registro", element: <RegisterPage /> },
+  { path: "/recuperar", element: <PhoneAuthPage /> },
+  { path: "/auth/callback", element: <OAuthCallbackPage /> },
   { element: <ProtectedRoute />, children: [
     { path: "/dashboard", element: deferred(<DashboardPage />) },
     { path: "/productos", element: deferred(<ProductsPage />) },

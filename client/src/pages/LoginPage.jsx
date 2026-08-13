@@ -5,6 +5,7 @@ import { useAuth } from "../features/auth/auth-context";
 import { AccessToken } from "../api/tokens";
 import { getApiError } from "../api/client";
 import PublicLayout from "../layouts/PublicLayout";
+import SocialAuthButtons from "../components/SocialAuthButtons";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -47,6 +48,8 @@ export default function LoginPage() {
         {error && <p className="form-error" role="alert">{error}</p>}
         <button className="button button-primary button-full" disabled={submitting || !form.username || !form.password}>{submitting ? <><span className="spinner small" />Accediendo…</> : "Acceder al panel"}</button>
       </form>
+      <SocialAuthButtons />
+      <p className="auth-footer"><Link to="/recuperar">He olvidado mi contraseña</Link></p>
       <p className="auth-footer">¿Aún no tienes acceso? <Link to="/registro">Crear cuenta</Link></p>
     </section>
   </div></PublicLayout>;

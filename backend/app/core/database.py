@@ -22,8 +22,23 @@ async def run_collection(
     return await asyncio.to_thread(method, *args, **kwargs)
 
 
-async def find_documents(collection: Any, query: dict[str, Any]) -> list[dict[str, Any]]:
+async def find_documents(
+    collection: Any, query: dict[str, Any], *, skip: int = 0, limit: int = 100
+) -> list[dict[str, Any]]:
     """Materializa un cursor Motor o PyMongo de forma segura."""
     if _is_async_collection(collection):
-        return await collection.find(query).to_list(length=None)
-    return await asyncio.to_thread(lambda: list(collection.find(query)))
+        cursor = collection.find(query)
+        length = None
+        if hasattr(cursor, "skip"):
+            cursor = cursor.skip(skip).limit(limit)
+            length = limit
+        return await cursor.to_list(length=length)
+
+    def materialize() -> list[dict[str, Any]]:
+        cursor = collection.find(query)
+        if hasattr(cursor, "skip"):
+            cursor = cursor.skip(skip).limit(limit)
+            return list(cursor)
+        return list(cursor)[skip : skip + limit]
+
+    return await asyncio.to_thread(materialize)

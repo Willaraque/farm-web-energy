@@ -46,7 +46,12 @@ export function createMarketSeries(rows, market = "diario") {
     const price = getMarketPrice(row);
     if (price === null) return [];
 
-    return [{ date: row.Hora ?? row.Fecha ?? row.date, price }];
+    const rawHour = row.Hora ?? row.hour;
+    const hour = rawHour === undefined || rawHour === null ? null : Number(rawHour);
+    const fecha = row.Fecha ?? row.date ?? "";
+    const hourLabel = Number.isFinite(hour) ? `${String(hour).padStart(2, "0")}:00` : "";
+    const date = fecha && hourLabel ? `${fecha} ${hourLabel}` : hourLabel || fecha;
+    return [{ date, fecha, hour, price }];
   });
 }
 
@@ -54,9 +59,7 @@ export function calculatePriceStats(values) {
   if (!Array.isArray(values)) return null;
 
   const prices = values
-    .map((value) =>
-      typeof value === "number" ? value : getMarketPrice(value),
-    )
+    .map((value) => (typeof value === "number" ? value : getMarketPrice(value)))
     .filter(Number.isFinite);
 
   if (!prices.length) return null;

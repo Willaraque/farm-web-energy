@@ -9,6 +9,7 @@ export default defineConfig({
     strictPort: true,
     proxy: {
       "/api": "http://127.0.0.1:8000",
+      "/auth": "http://127.0.0.1:8000",
       "/token": "http://127.0.0.1:8000",
       "/verify-token": "http://127.0.0.1:8000",
       "/delete-token": "http://127.0.0.1:8000",

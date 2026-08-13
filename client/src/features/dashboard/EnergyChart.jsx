@@ -1,14 +1,15 @@
 import PropTypes from "prop-types";
 import { Line } from "react-chartjs-2";
-import { CategoryScale, Chart as ChartJS, Filler, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from "chart.js";
+import { CategoryScale, Chart as ChartJS, Filler, Legend, LinearScale, LineElement, PointElement, Tooltip } from "chart.js";
 import { useTheme } from "../theme/theme-context";
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Title, Tooltip, Legend);
-export default function EnergyChart({ data }) {
-  const { resolvedTheme } = useTheme();
-  const dark = resolvedTheme === "dark";
-  const chartData = { labels: data.map((entry) => entry.date), datasets: [{ label: "Precio (€/MWh)", data: data.map((entry) => entry.price), borderColor: dark ? "#b8ff3d" : "#0f9f6e", backgroundColor: dark ? "rgba(184,255,61,.10)" : "rgba(15,159,110,.10)", pointRadius: data.length > 48 ? 0 : 2, borderWidth: 2, tension: .25, fill: true }] };
-  const tickColor = dark ? "#91a5a0" : "#64748b";
-  const options = { responsive: true, maintainAspectRatio: false, interaction: { intersect: false, mode: "index" }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (item) => `${item.raw.toFixed(2)} €/MWh` } } }, scales: { x: { grid: { display: false }, ticks: { color: tickColor, maxTicksLimit: 12 } }, y: { grid: { color: dark ? "rgba(122,255,218,.10)" : "rgba(100,116,139,.16)" }, ticks: { color: tickColor, callback: (value) => `${value} €` } } } };
+import { formatSigned } from "./price-analytics";
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
+
+export default function EnergyChart({ data, stats }) {
+  const { resolvedTheme } = useTheme(); const dark = resolvedTheme === "dark"; const prices = data.map((entry) => entry.price); const minIndex = data.indexOf(stats.minimum); const maxIndex = data.indexOf(stats.maximum);
+  const chartData = { labels: data.map((entry) => entry.date), datasets: [{ label: "Precio", data: prices, borderColor: dark ? "#29d4ff" : "#5b4cf0", segment: { borderColor: (context) => context.p1.parsed.y > context.p0.parsed.y ? "#42d7a6" : context.p1.parsed.y < context.p0.parsed.y ? "#ff5f87" : dark ? "#29d4ff" : "#5b4cf0" }, backgroundColor: dark ? "rgba(41,212,255,.08)" : "rgba(91,76,240,.08)", pointRadius: (context) => [minIndex, maxIndex].includes(context.dataIndex) ? 5 : data.length > 48 ? 0 : 2, pointBackgroundColor: (context) => context.dataIndex === minIndex ? "#42d7a6" : context.dataIndex === maxIndex ? "#ff5f87" : dark ? "#29d4ff" : "#5b4cf0", pointBorderWidth: 2, pointBorderColor: dark ? "#10131f" : "#fff", borderWidth: 2.5, tension: .28, fill: true }, { label: `Media ${stats.average.toFixed(2)} €/MWh`, data: data.map(() => stats.average), borderColor: dark ? "rgba(255,255,255,.38)" : "rgba(17,22,42,.35)", borderDash: [7, 6], borderWidth: 1.25, pointRadius: 0, fill: false } ] };
+  const options = { responsive: true, maintainAspectRatio: false, interaction: { intersect: false, mode: "index" }, animation: { duration: 420 }, plugins: { legend: { display: true, position: "top", align: "end", labels: { color: dark ? "#969db8" : "#687089", boxWidth: 22, usePointStyle: true } }, tooltip: { displayColors: false, padding: 12, callbacks: { title: (items) => items[0]?.label || "", label: (item) => item.datasetIndex === 1 ? `Media: ${stats.average.toFixed(2)} €/MWh` : `Precio: ${Number(item.raw).toFixed(2)} €/MWh`, afterLabel: (item) => { if (item.datasetIndex === 1) return ""; const index = item.dataIndex; const previous = index > 0 ? data[index - 1].price : data[index].price; const change = previous === 0 ? null : ((data[index].price - previous) / Math.abs(previous)) * 100; return [`Variación: ${formatSigned(change)}`, data[index].price >= stats.average ? "Estado: por encima de la media" : "Estado: por debajo de la media", index === minIndex ? "MÍNIMO DEL PERIODO" : index === maxIndex ? "MÁXIMO DEL PERIODO" : ""]; } } } }, scales: { x: { grid: { display: false }, ticks: { color: dark ? "#969db8" : "#687089", maxTicksLimit: 10, maxRotation: 0 } }, y: { grid: { color: dark ? "rgba(139,124,255,.10)" : "rgba(91,76,240,.10)" }, ticks: { color: dark ? "#969db8" : "#687089", callback: (value) => `${value} €` } } } };
   return <Line data={chartData} options={options} />;
 }
-EnergyChart.propTypes = { data: PropTypes.arrayOf(PropTypes.shape({ date: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, price: PropTypes.number.isRequired })).isRequired };
+EnergyChart.propTypes = { data: PropTypes.arrayOf(PropTypes.shape({ date: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, price: PropTypes.number.isRequired })).isRequired, stats: PropTypes.object.isRequired };
