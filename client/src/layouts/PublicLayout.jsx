@@ -7,18 +7,18 @@ export default function PublicLayout({ children }) {
   return (
     <div className="auth-shell">
       <header className="public-header">
-        <Link to="/" className="brand">
+        <Link to="/" className="brand public-brand" aria-label="WAC Energy, inicio">
           <span className="brand-mark">
             <Zap size={20} />
           </span>
           WAC Energy
         </Link>
-        <div className="public-actions">
+        <nav className="public-actions" aria-label="Navegación de acceso">
           <ThemeToggle />
           <Link to="/registro" className="button button-ghost">
             Crear cuenta
           </Link>
-        </div>
+        </nav>
       </header>
       <main>{children}</main>
     </div>

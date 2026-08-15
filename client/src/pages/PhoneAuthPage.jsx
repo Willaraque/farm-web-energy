@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { KeyRound } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import PublicLayout from "../layouts/PublicLayout";
+import AuthVisualPanel from "../components/auth/AuthVisualPanel";
+import recoveryVisual from "../assets/energy/dashboard-grid-hero.jpg";
 import { getApiError } from "../api/client";
 import {
   requestPasswordOtp,
@@ -85,7 +87,7 @@ export default function PhoneAuthPage() {
   };
   return (
     <PublicLayout>
-      <div className="auth-page centered">
+      <div className="auth-page auth-page-recovery">
         <section className="auth-card register-card auth-flow-card">
           <div className="auth-card-heading">
             <span className="icon-surface">
@@ -208,6 +210,7 @@ export default function PhoneAuthPage() {
             <Link to="/">Volver al inicio de sesión</Link>
           </p>
         </section>
+        <AuthVisualPanel compact image={recoveryVisual} title="Recupera el acceso con seguridad." description="Verifica tu identidad y vuelve a tu espacio energético." />
       </div>
     </PublicLayout>
   );

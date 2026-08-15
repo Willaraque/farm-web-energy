@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { BarChart3, Boxes, LogOut, Menu, Plus, X, Zap } from "lucide-react";
+import { BarChart3, Boxes, LayoutDashboard, LogOut, Menu, Plus, X, Zap } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { deleteToken } from "../api/tokens";
 import { useAuth } from "../features/auth/auth-context";
 import ThemeToggle from "../features/theme/ThemeToggle";
 
 const links = [
-  { to: "/dashboard", label: "Resumen", icon: BarChart3 },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/resumen", label: "Resumen", icon: BarChart3 },
   { to: "/precios", label: "Mercados", icon: Zap },
   { to: "/productos", label: "Productos", icon: Boxes },
   { to: "/productos/create", label: "Nuevo producto", icon: Plus },

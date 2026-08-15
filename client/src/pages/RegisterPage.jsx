@@ -5,6 +5,8 @@ import { createUser } from "../api/users";
 import { getApiError } from "../api/client";
 import PublicLayout from "../layouts/PublicLayout";
 import SocialAuthButtons from "../components/SocialAuthButtons";
+import AuthVisualPanel from "../components/auth/AuthVisualPanel";
+import registerVisual from "../assets/energy/battery-storage-register.jpg";
 
 const EMPTY_FORM = {
   name: "",
@@ -49,7 +51,7 @@ export default function RegisterPage() {
 
   return (
     <PublicLayout>
-      <div className="auth-page centered">
+      <div className="auth-page auth-page-register">
         <section className="auth-card register-card">
           <p className="eyebrow">Nueva cuenta</p>
           <h1>Empieza con WAC Energy</h1>
@@ -145,6 +147,7 @@ export default function RegisterPage() {
             ¿Ya tienes cuenta? <Link to="/">Iniciar sesión</Link>
           </p>
         </section>
+        <AuthVisualPanel image={registerVisual} title="Toda tu información energética, en un solo espacio." description="Centraliza el seguimiento del mercado y la gestión de tus productos con una visión más clara." />
       </div>
     </PublicLayout>
   );

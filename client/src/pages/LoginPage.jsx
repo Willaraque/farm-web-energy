@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Eye, EyeOff, LockKeyhole, Zap } from "lucide-react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../features/auth/auth-context";
@@ -6,6 +6,11 @@ import { AccessToken } from "../api/tokens";
 import { getApiError } from "../api/client";
 import PublicLayout from "../layouts/PublicLayout";
 import SocialAuthButtons from "../components/SocialAuthButtons";
+import energyHero from "../assets/energy/energy-infrastructure-hero.jpg";
+
+const MagicRingsBackground = lazy(() =>
+  import("../components/effects/MagicRings/MagicRingsBackground"),
+);
 
 export default function LoginPage() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -35,10 +40,18 @@ export default function LoginPage() {
 
   return <PublicLayout><div className="auth-page">
     <section className="auth-intro" aria-label="WAC Energy">
-      <span className="hero-icon"><Zap /></span><p className="eyebrow">Inteligencia energética</p>
-      <h1>Decisiones claras para un mercado que no se detiene.</h1>
-      <p>Consulta precios, productos e indicadores operativos desde un único espacio seguro.</p>
-      <div className="auth-proof"><span>Datos centralizados</span><span>Seguimiento diario</span><span>Acceso seguro</span></div>
+      <Suspense fallback={null}><MagicRingsBackground /></Suspense>
+      <figure className="auth-hero-visual" aria-hidden="true">
+        <img src={energyHero} alt="" width="1600" height="900" fetchPriority="high" />
+        <figcaption><i />Infraestructura conectada</figcaption>
+      </figure>
+      <div className="auth-intro-content">
+        <span className="hero-icon"><Zap /></span>
+        <p className="eyebrow">Inteligencia energética</p>
+        <h1>Decisiones claras para un mercado que no se detiene.</h1>
+        <p>Consulta precios, productos e indicadores operativos desde un único espacio seguro.</p>
+        <div className="auth-proof"><span>Datos centralizados</span><span>Seguimiento diario</span><span>Acceso seguro</span></div>
+      </div>
     </section>
     <section className="auth-card" aria-labelledby="login-title">
       <div className="auth-card-heading"><span className="icon-surface"><LockKeyhole /></span><div><p className="eyebrow">Bienvenido de nuevo</p><h2 id="login-title">Inicia sesión</h2></div></div>

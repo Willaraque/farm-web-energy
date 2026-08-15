@@ -11,7 +11,8 @@ import OAuthCallbackPage from "./pages/OAuthCallbackPage";
 import SpinnerLoader from "./components/SpinnerLoader";
 import ThemeProvider from "./features/theme/ThemeProvider";
 
-const DashboardPage = lazy(() => import("./features/dashboard/DashboardPage"));
+const DashboardPage = lazy(() => import("./features/dashboard/OperationsDashboardPage"));
+const SummaryPage = lazy(() => import("./features/dashboard/DashboardPage"));
 const ProductsPage = lazy(() => import("./features/products/ProductsPage"));
 const ProductFormPage = lazy(() => import("./features/products/ProductFormPage"));
 const MarketPricesPage = lazy(() => import("./features/market/MarketPricesPage"));
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
   { path: "/auth/callback", element: <OAuthCallbackPage /> },
   { element: <ProtectedRoute />, children: [
     { path: "/dashboard", element: deferred(<DashboardPage />) },
+    { path: "/resumen", element: deferred(<SummaryPage />) },
     { path: "/productos", element: deferred(<ProductsPage />) },
     { path: "/productos/create", element: deferred(<ProductFormPage />) },
     { path: "/productos/:id", element: deferred(<ProductFormPage />) },

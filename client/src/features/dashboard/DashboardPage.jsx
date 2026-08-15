@@ -22,7 +22,7 @@ export default function DashboardPage() {
   const TrendIcon = stats?.trend === "positive" ? TrendingUp : stats?.trend === "negative" ? TrendingDown : Minus;
 
   return <AppLayout>
-    <PageHeader eyebrow="Visión general" title="Panel de energía" description="Evolución, contexto y señales del mercado diario." actions={<button className="button button-secondary" type="button" onClick={load} disabled={status === "loading"}><RefreshCw className={status === "loading" ? "is-spinning" : ""} size={16} />Actualizar</button>} />
+    <PageHeader eyebrow="Análisis de mercado" title="Resumen energético" description="Evolución, contexto y señales del mercado diario." actions={<button className="button button-secondary" type="button" onClick={load} disabled={status === "loading"}><RefreshCw className={status === "loading" ? "is-spinning" : ""} size={16} />Actualizar</button>} />
     <div className="filter-card dashboard-filters"><label className="field compact">Desde<input type="date" value={filters.desde} max={filters.hasta} onChange={(event) => setFilters((current) => ({ ...current, desde: event.target.value }))} /></label><label className="field compact">Hasta<input type="date" value={filters.hasta} min={filters.desde} onChange={(event) => setFilters((current) => ({ ...current, hasta: event.target.value }))} /></label>{stats && <div className={`trend-summary ${stats.trend}`}><TrendIcon /><span><small>Tendencia</small><strong>{trendLabel(stats.trend)} · {formatSigned(stats.periodChange)}</strong></span></div>}</div>
     <div className="metric-grid analytics-metrics">
       <Metric icon={Activity} label="Precio actual" value={stats?.current.price} tone={stats?.trend} detail={formatSigned(stats?.percentageChange ?? null)} loading={status === "loading"} />

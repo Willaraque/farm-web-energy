@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, Save, Trash2 } from "lucide-react";
+import { ArrowLeft, ClipboardCheck, Layers3, Save, Trash2 } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   createTask,
@@ -86,7 +86,7 @@ export default function ProductFormPage() {
       {status === "loading" ? (
         <SpinnerLoader label="Cargando producto" />
       ) : (
-        <section className="form-card">
+        <div className="product-form-layout"><section className="form-card">
           <form onSubmit={submit}>
             <div className="form-grid">
               <label className="field">
@@ -157,7 +157,7 @@ export default function ProductFormPage() {
               </button>
             </div>
           </form>
-        </section>
+        </section><aside className="form-context-panel"><span><Layers3 /></span><p className="eyebrow">Ficha de producto</p><h2>Información clara y consistente</h2><p>Organiza los datos esenciales para que el catálogo sea fácil de consultar y mantener.</p><ul><li><ClipboardCheck />Identificación y categoría</li><li><ClipboardCheck />Precio y descripción</li><li><ClipboardCheck />Estado gestionado desde Productos</li></ul></aside></div>
       )}
     </AppLayout>
   );
